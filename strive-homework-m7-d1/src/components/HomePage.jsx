@@ -62,7 +62,7 @@ useEffect(()=> {
         <div style={{textAlign: 'center'}}>
  <h1 className="mt-2" style={{textAlign: 'center', color: 'green'}}>Job Search</h1>
  <div>
- <input className="w-50" type={"text"} placeholder="search your dream job..." onMouseLeave={(e) => setJobSearch(e.target.value)}/>
+ <input className="w-50" type={"text"} placeholder="search your dream job..." onChange={(e) => setJobSearch(e.target.value)}/>
 <Button  onClick={()=> {if(jobSearch!==undefined){fetchJobs("0")}; setPosition(0);if(category!== "Filter by category"){
 fetchSingleCategory("0")
 }} }>GO!</Button>
