@@ -10,6 +10,7 @@ const SingleJob = ({job}) => {
             <Link to={`/${job.company_name}`}>
             <p>{job.company_name}</p>
             </Link>
+            <p>{job.category}</p>
         </div>
     </Col>
     )
