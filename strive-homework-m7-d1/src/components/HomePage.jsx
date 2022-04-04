@@ -6,7 +6,7 @@ import SingleJob from "./SingleJob"
 
 const HomePage = () => {
 
-    const [jobSearch, setJobSearch] = useState(null)
+    const [jobSearch, setJobSearch] = useState(undefined)
 
     const [category, setCategory] = useState("Filter by category")
 
@@ -27,6 +27,7 @@ const HomePage = () => {
           const response = await fetch(httpFetchSearch(off));
           const data = await response.json();
          setJobs(data.data)
+         console.log(data.data)
         } catch (error) {
           console.log(error);
         }
@@ -61,8 +62,8 @@ useEffect(()=> {
         <div style={{textAlign: 'center'}}>
  <h1 className="mt-2" style={{textAlign: 'center', color: 'green'}}>Job Search</h1>
  <div>
- <input className="w-50" type={"text"} placeholder="search your dream job..." onChange={(e) => setJobSearch(e.target.value)}/>
-<Button onClick={()=> {if(jobSearch!==undefined){fetchJobs("0")}; setPosition(0);if(category!== "Filter by category"){
+ <input className="w-50" type={"text"} placeholder="search your dream job..." onMouseLeave={(e) => setJobSearch(e.target.value)}/>
+<Button  onClick={()=> {if(jobSearch!==undefined){fetchJobs("0")}; setPosition(0);if(category!== "Filter by category"){
 fetchSingleCategory("0")
 }} }>GO!</Button>
  <DropdownButton
@@ -70,7 +71,9 @@ fetchSingleCategory("0")
       title={category}
       placeholder="Filter by category"
       id="input-group-dropdown-1"
-    >{categories && categories.map(cat => 
+    >
+        <Dropdown.Item onClick={()=> {setCategory("Filter by category")}} href="#">Filter by category</Dropdown.Item>
+        {categories && categories.map(cat => 
       <Dropdown.Item onClick={()=> {setCategory(cat)}} key={cat}href="#">{cat}</Dropdown.Item>
     )}
     </DropdownButton>
@@ -78,12 +81,14 @@ fetchSingleCategory("0")
         </div>{jobs || jobByCategory ?<> <h2 className="mt-2" style={{textAlign: 'center'}}> Jobs including "{ jobSearch? jobSearch : category}":</h2>
         <Row className="m-2 mt-4">
             
-            {(jobs && category==="Filter by category") && jobs.map((job) => (
+            {(jobSearch !== undefined && category==="Filter by category") && jobs.map((job) => (
            <SingleJob key={job._id} job={job}/>))}
-           {(jobs && category!=="Filter by category") && jobs.filter(job => job.category === category).map((job) => (
+           {(jobSearch!== undefined  && category!=="Filter by category") && jobs.filter(job => job.category === category).map((job) => (
            <SingleJob key={job._id} job={job}/>))}
-           {(jobByCategory && category !=="Filter by category" ) && jobByCategory.map((job) => (
+           {(jobSearch === undefined && category !=="Filter by category" ) && jobByCategory.map((job) => (
            <SingleJob key={job._id} job={job}/>))}
+           {/* {(jobByCategory && jobSearch && category !=="Filter by category" ) && jobByCategory.filter(job => job.title === jobSearch).map((job) => (
+           <SingleJob key={job._id} job={job}/>))} */}
         </Row> 
         <div className=" d-flex w-50 justify-content-between m-auto" style={{color: 'darkcyan', fontSize:"20px"}} >
         <p className={position === 0 ? "pointer borderB" : "pointer"} onClick={()=> {fetchJobs("0"); setPosition(0) ; if(jobs === undefined && category!== "Filter by category"){
