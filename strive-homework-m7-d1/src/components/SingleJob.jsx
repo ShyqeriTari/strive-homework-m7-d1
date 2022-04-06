@@ -23,7 +23,7 @@ const SingleJob = ({job, addToFavourites}) => {
             <p>{job.company_name}</p>
             </Link>
             <p>{job.category}</p>
-            <Button variant="warning" onClick={()=> {addToFavourites(job)}}>Add to favourites <i className="bi bi-star"></i></Button>
+            <Button variant="warning" onClick={()=> {addToFavourites(job)}} style={{marginTop:"auto"}}>Add to favourites <i className="bi bi-star"></i></Button>
         </div>
     )
 }
