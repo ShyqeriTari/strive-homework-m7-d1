@@ -23,8 +23,8 @@ const SingleJob = ({job, jobss, addToFavourites}) => {
             <Link to={`/${job.company_name}`}>
             <p>{job.company_name}</p>
             </Link>
-            <p>{job.category}</p>
-            <Button variant="warning" onClick={()=> {if(!jobss.includes(job.company_name)){addToFavourites(job.company_name)}}} style={{marginTop:"auto"}}>Add Company to favourites <i className="bi bi-star"></i></Button>
+            <p>{job.category}</p>{!jobss.includes(job.company_name) ?
+            <Button variant="warning" onClick={()=> {addToFavourites(job.company_name)}} style={{marginTop:"auto"}}>Add Company to favourites <i className="bi bi-star"></i></Button> : <><p className="bg-success text-white">One of your favourites comanies!</p></>}
         </div>
     )
 }
