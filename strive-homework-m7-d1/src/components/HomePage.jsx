@@ -1,10 +1,21 @@
 import { useState , useEffect } from "react"
-import { Row, Col, DropdownButton, Dropdown } from "react-bootstrap"
+import { Row,  DropdownButton, Dropdown, Col } from "react-bootstrap"
 import { Button } from "react-bootstrap"
-import { Link } from "react-router-dom"
 import SingleJob from "./SingleJob"
+import { Link } from "react-router-dom"
+import { connect } from 'react-redux'
 
-const HomePage = () => {
+
+const mapStateToProps = (state) => ({
+  jobss: state.jobs.favourites,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+ 
+})
+
+
+const HomePage = ({jobss}) => {
 
     const [jobSearch, setJobSearch] = useState(undefined)
 
@@ -55,10 +66,17 @@ const HomePage = () => {
 
 useEffect(()=> {
     fetchCategories()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
 
     return(
     <div>
+      <Link to={`/favourites`}>
+        <div>
+     <i className="bi bi-star" style={{backgroundColor: "yellow", fontSize: "30px", marginLeft:"90%"}}></i>
+      {jobss.length}
+     </div>
+     </Link>
         <div style={{textAlign: 'center'}}>
  <h1 className="mt-2" style={{textAlign: 'center', color: 'green'}}>Job Search</h1>
  <div>
@@ -82,11 +100,12 @@ fetchSingleCategory("0")
         <Row className="m-2 mt-4">
             
             {(jobSearch !== undefined && category==="Filter by category") && jobs.map((job) => (
-           <SingleJob key={job._id} job={job}/>))}
+              <Col className="mb-2" md={3}>
+           <SingleJob key={job._id} job={job}/></Col>))}
            {(jobSearch!== undefined  && category!=="Filter by category") && jobs.filter(job => job.category === category).map((job) => (
-           <SingleJob key={job._id} job={job}/>))}
+           <Col className="mb-2" md={3}><SingleJob key={job._id} job={job}/></Col>))}
            {(jobSearch === undefined && category !=="Filter by category" ) && jobByCategory.map((job) => (
-           <SingleJob key={job._id} job={job}/>))}
+           <Col className="mb-2" md={3}><SingleJob key={job._id} job={job}/></Col>))}
            {/* {(jobByCategory && jobSearch && category !=="Filter by category" ) && jobByCategory.filter(job => job.title === jobSearch).map((job) => (
            <SingleJob key={job._id} job={job}/>))} */}
         </Row> 
@@ -117,4 +136,4 @@ fetchSingleCategory("50")
     )
 }
 
-export default HomePage
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
