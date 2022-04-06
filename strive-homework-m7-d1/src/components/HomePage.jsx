@@ -99,12 +99,12 @@ fetchSingleCategory("0")
         <Row className="m-2 mt-4">
             
             {(jobSearch !== undefined && category==="Filter by category") && jobs.map((job) => (
-              <Col className="mb-2" md={3}>
-           <SingleJob key={job._id} job={job}/></Col>))}
+              <Col className="mb-2" key={job._id} md={3}>
+           <SingleJob  job={job}/></Col>))}
            {(jobSearch!== undefined  && category!=="Filter by category") && jobs.filter(job => job.category === category).map((job) => (
-           <Col className="mb-2" md={3}><SingleJob key={job._id} job={job}/></Col>))}
+           <Col className="mb-2" key={job._id} md={3}><SingleJob  job={job}/></Col>))}
            {(jobSearch === undefined && category !=="Filter by category" ) && jobByCategory.map((job) => (
-           <Col className="mb-2" md={3}><SingleJob key={job._id} job={job}/></Col>))}
+           <Col className="mb-2"  key={job._id} md={3}><SingleJob  job={job}/></Col>))}
            {/* {(jobByCategory && jobSearch && category !=="Filter by category" ) && jobByCategory.filter(job => job.title === jobSearch).map((job) => (
            <SingleJob key={job._id} job={job}/>))} */}
         </Row> 

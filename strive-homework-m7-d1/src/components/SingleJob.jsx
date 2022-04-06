@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { addToFavouritesAction } from '../redux/actions'
 
 const mapStateToProps = (state) => ({
+    jobss: state.jobs.favourites,
   })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -14,7 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
   })
 
 
-const SingleJob = ({job, addToFavourites}) => {
+const SingleJob = ({job, jobss, addToFavourites}) => {
     return(
         
         <div className="d-flex flex-column mr-2 p-2" style={{border: "1px solid grey", minHeight: "200px"}}>
@@ -23,7 +24,7 @@ const SingleJob = ({job, addToFavourites}) => {
             <p>{job.company_name}</p>
             </Link>
             <p>{job.category}</p>
-            <Button variant="warning" onClick={()=> {addToFavourites(job.company_name)}} style={{marginTop:"auto"}}>Add Company to favourites <i className="bi bi-star"></i></Button>
+            <Button variant="warning" onClick={()=> {if(!jobss.includes(job.company_name)){addToFavourites(job.company_name)}}} style={{marginTop:"auto"}}>Add Company to favourites <i className="bi bi-star"></i></Button>
         </div>
     )
 }
