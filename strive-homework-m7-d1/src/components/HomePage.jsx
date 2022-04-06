@@ -38,7 +38,6 @@ const HomePage = ({jobss}) => {
           const response = await fetch(httpFetchSearch(off));
           const data = await response.json();
          setJobs(data.data)
-         console.log(data.data)
         } catch (error) {
           console.log(error);
         }

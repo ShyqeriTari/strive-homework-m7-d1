@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
 import { Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import SingleJob from "./SingleJob"
@@ -25,7 +23,7 @@ const Favourites = ({jobs, removeFromFavourites}) => {
         <Row className="m-2 mt-4">
              {jobs && jobs.map((job, idx) => (
            <Col className="mb-2" md={3}> <SingleJob key={job._id} job={job}/>
-            <Button variant="danger" onClick={()=> {removeFromFavourites(idx)}}><i class="bi bi-trash3-fill" ></i></Button></Col>))}
+            <Button variant="danger" onClick={()=> {removeFromFavourites(idx)}}><i className="bi bi-trash3-fill" ></i></Button></Col>))}
             
         </Row> </>
       

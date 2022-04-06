@@ -1,5 +1,4 @@
 import { Button } from "react-bootstrap"
-import {  Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { connect } from 'react-redux'
 import { addToFavouritesAction } from '../redux/actions'
