@@ -3,23 +3,11 @@ import { Row,  DropdownButton, Dropdown, Col } from "react-bootstrap"
 import { Button } from "react-bootstrap"
 import SingleJob from "./SingleJob"
 import { Link } from "react-router-dom"
-import { connect } from 'react-redux'
 import { getResultAction } from '../redux/actions'
+import { useSelector, useDispatch } from 'react-redux'
 
 
-const mapStateToProps = (state) => ({
-  jobss: state.jobs.favourites,
-  result: state.search.result,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  getResult: (jobSearch, off) => {
-    dispatch(getResultAction(jobSearch, off))
-  },
-})
-
-
-const HomePage = ({jobss, result, getResult}) => {
+const HomePage = () => {
 
     const [jobSearch, setJobSearch] = useState(undefined)
 
@@ -32,6 +20,12 @@ const HomePage = ({jobss, result, getResult}) => {
     const [position, setPosition] = useState(null)
 
     const [jobs, setJobs] = useState(undefined)
+
+    const jobss = useSelector((state)=> state.jobs.favourites)
+
+    const result = useSelector((state)=> state.search.result)
+
+    const dispatch = useDispatch()
 
     const httpFetchSearch = (off) => `${process.env.REACT_APP_LOCAL}?search=${jobSearch}&limit=10&offset=${off}`
     const httpFetchFilter = (off) => `${process.env.REACT_APP_LOCAL}?category=${category}&limit=10&offset=${off}`
@@ -84,9 +78,9 @@ useEffect(()=> {
  <h1 className="mt-2" style={{textAlign: 'center', color: 'green'}}>Job Search</h1>
  <div>
  <input className="w-50" type={"text"} placeholder="search your dream job..." onChange={(e) => setJobSearch(e.target.value)}/>
-<Button  onClick={()=> {if(jobSearch!==undefined){getResult(jobSearch,"0") }; setPosition(0);if(category!== "Filter by category"){
+<Button  onClick={()=> {if(jobSearch!==undefined){dispatch(getResultAction(jobSearch, "0")); setPosition(0);if(category!== "Filter by category"){
 fetchSingleCategory("0")
-}} }>GO!</Button>
+}} }}>GO!</Button>
  <DropdownButton
       variant="outline-secondary"
       title={category}
@@ -113,22 +107,22 @@ fetchSingleCategory("0")
            <SingleJob key={job._id} job={job}/>))} */}
         </Row> 
         <div className=" d-flex w-50 justify-content-between m-auto" style={{color: 'darkcyan', fontSize:"20px"}} >
-        <p className={position === 0 ? "pointer borderB" : "pointer"} onClick={()=> {getResult(jobSearch,"0"); setPosition(0) ; if(jobs === undefined && category!== "Filter by category"){
+        <p className={position === 0 ? "pointer borderB" : "pointer"} onClick={()=> {dispatch(getResultAction(jobSearch,"0")); setPosition(0) ; if(jobs === undefined && category!== "Filter by category"){
 fetchSingleCategory("0")
 } }}>0</p>
-            <p className={position === 10 ? "pointer borderB" : "pointer"} onClick={()=> {getResult(jobSearch,"10"); setPosition(10); if(jobs === undefined && category!== "Filter by category"){
+            <p className={position === 10 ? "pointer borderB" : "pointer"} onClick={()=> {dispatch(getResultAction(jobSearch,"10")); setPosition(10); if(jobs === undefined && category!== "Filter by category"){
 fetchSingleCategory("10")
 }}}>1</p>
-        <p className={position === 20 ? "pointer borderB" : "pointer"}  onClick={()=> {getResult(jobSearch,"20"); setPosition(20); if(jobs === undefined && category!== "Filter by category"){
+        <p className={position === 20 ? "pointer borderB" : "pointer"}  onClick={()=> {dispatch(getResultAction(jobSearch,"20")); setPosition(20); if(jobs === undefined && category!== "Filter by category"){
 fetchSingleCategory("20")
 } }}>2</p>
-        <p className={position === 30 ? "pointer borderB" : "pointer"} onClick={()=> {getResult(jobSearch,"30"); setPosition(30); if(jobs === undefined && category!== "Filter by category"){
+        <p className={position === 30 ? "pointer borderB" : "pointer"} onClick={()=> {dispatch(getResultAction(jobSearch,"30")); setPosition(30); if(jobs === undefined && category!== "Filter by category"){
 fetchSingleCategory("30")
 }}}>3</p>
-        <p className={position === 40 ? "pointer borderB" : "pointer"} onClick={()=> {getResult(jobSearch,"40"); setPosition(40); if(jobs === undefined && category!== "Filter by category"){
+        <p className={position === 40 ? "pointer borderB" : "pointer"} onClick={()=> {dispatch(getResultAction(jobSearch,"40")); setPosition(40); if(jobs === undefined && category!== "Filter by category"){
 fetchSingleCategory("40")
 } }}>4</p>
-        <p className={position === 50 ? "pointer borderB" : "pointer"} onClick={()=> {getResult(jobSearch,"50"); setPosition(50); if(jobs === undefined && category!== "Filter by category"){
+        <p className={position === 50 ? "pointer borderB" : "pointer"} onClick={()=> {dispatch(getResultAction(jobSearch,"50")); setPosition(50); if(jobs === undefined && category!== "Filter by category"){
 fetchSingleCategory("50")
 }}}>5</p>
         </div></>:
@@ -139,4 +133,4 @@ fetchSingleCategory("50")
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default HomePage

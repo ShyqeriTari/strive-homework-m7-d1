@@ -1,18 +1,12 @@
 import { Row, Col } from "react-bootstrap"
+import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { connect } from 'react-redux'
 import SingleCompany from "./SingleCompany"
 
-const mapStateToProps = (state) => ({
-  jobs: state.jobs.favourites,
-})
 
-const mapDispatchToProps = (dispatch) => ({
-  
-})
+const Favourites = () => {
 
-const Favourites = ({jobs}) => {
-
+  const jobs = useSelector((state)=> state.jobs.favourites)
 
     return(
         <><Link to={`/`}><div style={{textDecoration:"none", color:"red"}}><i className="bi bi-arrow-90deg-left ml-2 mt-2" style={{fontSize: "25px"}}></i> Homepage</div></Link>
@@ -26,4 +20,4 @@ const Favourites = ({jobs}) => {
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Favourites)
+export default Favourites

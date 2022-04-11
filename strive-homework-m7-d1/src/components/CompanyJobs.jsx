@@ -3,23 +3,16 @@ import { useParams } from "react-router-dom"
 import { Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import SingleJob from "./SingleJob"
-import { connect } from 'react-redux'
+import { useSelector } from "react-redux"
 
 
-const mapStateToProps = (state) => ({
-  jobss: state.jobs.favourites,
-})
-
-const mapDispatchToProps = (dispatch) => ({
- 
-})
-
-
-const CompanyJobs = ({jobss}) => {
+const CompanyJobs = () => {
 
     const params = useParams()
 
     const [companyJobs, setcompanyJobs] = useState(undefined)
+
+    const jobss = useSelector((state)=> state.jobs.favourites)
 
     const httpFetch = `${process.env.REACT_APP_LOCAL}?company=${params.company}`
 
@@ -56,4 +49,4 @@ const CompanyJobs = ({jobss}) => {
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CompanyJobs)
+export default CompanyJobs
