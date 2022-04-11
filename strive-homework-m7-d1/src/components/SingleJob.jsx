@@ -19,7 +19,7 @@ const SingleJob = ({job}) => {
             <p>{job.company_name}</p>
             </Link>
             <p>{job.category}</p>{!jobss.includes(job.company_name) ?
-            <Button variant="warning" onClick={()=> {dispatch(addToFavouritesAction(job.company_name))}} style={{marginTop:"auto"}}>Add Company to favourites <i className="bi bi-star"></i></Button> : <><p className="bg-success text-white">One of your favourites comanies!</p></>}
+            <Button variant="warning" onClick={()=> {dispatch(addToFavouritesAction(job.company_name))}} style={{marginTop:"auto"}}>Add Company to favourites <i className="bi bi-star"></i></Button> : <><p className="bg-success text-white">One of your favourites companies!</p></>}
         </div>
     )
 }
